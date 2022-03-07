@@ -1,0 +1,56 @@
+name: Test and Deployment pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  Test:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ github.job }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            pip-
+      - name: Install pkg
+        run: sudo apt-get install python3-dev graphviz libgraphviz-dev pkg-config
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+  Code-Quality:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install pkg
+        run: sudo apt-get install python3-dev graphviz libgraphviz-dev pkg-config
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run black
+        run: black . --check
+      - name: Run isort
+        run: isort . --check-only --profile black
+      - name: Run flake8
+        run: flake8 .
