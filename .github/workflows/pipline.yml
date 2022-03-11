@@ -1,0 +1,69 @@
+name: Test and Deployment pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  Code-Quality:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      # be
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Setup
+        working-directory: ./backend
+        # - name: Install pkg
+        run: |
+          sudo apt-get install python3-dev graphviz libgraphviz-dev pkg-config
+          pip install -r requirements.txt
+          black . --check --exclude='migrations/'
+          isort . --check-only --profile black
+          flake8 .
+        #run: pip install -r requirements.txt
+      # - name: Install dependencies
+      # - name: Run black
+      #run: black . --check
+      # - name: Run isort
+      #run: isort . --check-only --profile black
+      # - name: Run flake8
+      #run: flake8 .
+      # fe
+      - uses: actions/setup-node@v2
+      - run: npm install
+        working-directory: ./frontend
+      - run: npm run eslint
+        working-directory: ./frontend
+
+  versioning:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
+        if: ${{ github.event_name == 'push' && (!contains(join(github.event.commits[0].message, ''), '#skip')) }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          INITIAL_VERSION: 0.0.0
+
+  # discord notif
+  dc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        if: ${{ github.event_name == 'push' && (!contains(join(github.event.commits[0].message, ''), '#skip')) }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed."

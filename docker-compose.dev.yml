@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  backend:
+    image: be-dev
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./backend/:/usr/src/app
+    ports:
+      - 8000:8000
+    container_name: be-dev
+    environment:
+      - ./backend/.env
+
+  frontend:
+    image: fe-dev
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./frontend/:/usr/src/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    container_name: fe-dev
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+
+  nginx:
+    depends_on:
+      - frontend
+      - backend
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: dev.Dockerfile
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
