@@ -1,12 +1,12 @@
-from pathlib import Path
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
-print(os.environ)
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = os.environ.get("DEBUG")
@@ -16,7 +16,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://ristek-blogs.herokuapp.com",
-    "https://rece-blogs.herokuapp.com"
+    "https://rece-blogs.herokuapp.com",
 ]
 
 INSTALLED_APPS = [
