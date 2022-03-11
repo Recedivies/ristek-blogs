@@ -2,9 +2,22 @@ version: "3.8"
 
 services:
   web:
-    build: ./backend
-    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: gunicorn backend.core.wsgi:application --bind 0.0.0.0:8000
     ports:
       - 8000:8000
+    container_name: be-prod
     environment:
-      - .env.prod
+      - ./backend/.env.prod
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:80
+    container_name: fe-prod
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8000

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "./utils/apiClient";
 
 const App = () => {
   const [textInput, setTextInput] = useState("");

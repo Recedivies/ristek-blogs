@@ -91,7 +91,8 @@ local_settings.py
 # custom setup
 venv
 .env
+.env.dev
+.env.prod
 requests
 db.sqlite3
 blogs_users.dot
-test

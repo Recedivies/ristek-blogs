@@ -6,13 +6,18 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
-
+print(os.environ)
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0"]
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://ristek-blogs.herokuapp.com"]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://ristek-blogs.herokuapp.com",
+    "https://rece-blogs.herokuapp.com"
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -32,6 +37,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -93,6 +99,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
+STATIC_URL = "/static-django/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

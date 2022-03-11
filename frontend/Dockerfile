@@ -7,7 +7,7 @@ COPY . .
 
 RUN npm ci --only-production
 
-RUN CI=true npm test
+#RUN CI=true npm test
 
 RUN npm run build
 
