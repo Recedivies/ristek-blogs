@@ -15,8 +15,7 @@ RUN  \
     apk update && \
     apk upgrade && \
     apk add --no-cache bash && \
-    apk add --no-cache postgresql-libs && \
-    apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
+    apk add --no-cache --virtual .build-deps gcc musl-dev && \
     pip3 install --upgrade pip -r requirements.txt && \
     apk --purge del .build-deps
 
