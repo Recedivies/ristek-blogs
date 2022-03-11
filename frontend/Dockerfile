@@ -1,21 +1,16 @@
 # build-stage
-FROM node:16-alpine AS build-stage
+FROM node:16-alpine as build
 
-WORKDIR /usr/src/app
-
-COPY . .
-
-RUN npm ci --only-production
-
-#RUN CI=true npm test
-
+WORKDIR /app/frontend
+COPY ./frontend/package.json ./ && \
+  ./frontend/package-lock.json ./
+  
+RUN npm ci --silent
+COPY ./frontend/ ./
 RUN npm run build
 
-# This is a new stage, everything before this is gone, except the files we want to COPY
-FROM nginx:1.20-alpine
-
-COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html
-
-EXPOSE 80
-
+# The second stage
+# Copy React static files and start nginx
+FROM nginx:stable-alpine
+COPY --from=build /app/frontend/build /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
