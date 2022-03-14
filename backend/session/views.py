@@ -4,14 +4,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from sessions.models import Session
-from sessions.serializers import LoginSerializer
+from session.models import Session
+from session.serializers import LoginSerializer
 
 
 class LoginView(TokenObtainPairView):
     """
     Allowed Method: POST
-    POST  api/login - create session when login user
+    POST  api/login/ - create session when login user
     """
 
     serializer_class = LoginSerializer
@@ -20,7 +20,7 @@ class LoginView(TokenObtainPairView):
 class LogoutView(DestroyAPIView):
     """
     Allowed Method: DELETE
-    DELETE  api/logout - Delete a session with correspond user
+    DELETE  api/logout/ - Delete a session with correspond user
     """
 
     queryset = Session.objects.all()

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from sessions.models import Session
+from session.models import Session
 
 
 @admin.register(Session)
