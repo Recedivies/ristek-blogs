@@ -9,7 +9,7 @@ class Blog(models.Model):
     likes = models.IntegerField(validators=[MinValueValidator(0)], default=0)
 
     def __str__(self) -> str:
-        return f"{self.content[:50] if len(self.content) > 50 else ...}"
+        return f"{self.body[:50] if len(self.body) > 50 else ...}"
 
     class Meta:
         ordering = ["-created_at"]

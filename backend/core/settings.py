@@ -19,6 +19,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://rece-blogs.herokuapp.com",
 ]
 
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8080"]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -28,7 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blogs",
     "comments",
-    "sessions",
+    "session",
     "users",
     "api",
     "rest_framework",
@@ -92,6 +94,12 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
 
 LANGUAGE_CODE = "en-us"
 

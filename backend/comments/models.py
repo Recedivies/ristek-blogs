@@ -14,14 +14,14 @@ class Comment(models.Model):
     )
     blog = models.ForeignKey(
         to=Blog,
-        related_name="post_blog",
-        related_query_name="post_blog",
+        related_name="comments",
+        related_query_name="comments",
         on_delete=models.CASCADE,
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.users}"
+        return f"{self.content}"
 
     class Meta:
         ordering = ["-created_at"]

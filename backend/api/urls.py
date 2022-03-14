@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 
-from sessions.views import LoginView, LogoutView
+from session.views import LoginView, LogoutView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
