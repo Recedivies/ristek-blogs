@@ -96,3 +96,4 @@ venv
 requests
 db.sqlite3
 blogs_users.dot
+staticfiles
