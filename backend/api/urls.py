@@ -3,7 +3,6 @@ from django.urls import include, path
 
 from sessions.views import LoginView, LogoutView
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("blogs/", include("blogs.urls")),
