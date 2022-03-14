@@ -1,11 +1,10 @@
 # Ristek Web Development Task
 
 <div align="center" style="padding-bottom: 20px">
-    <h1>Django + React + Postgres + Docker + Heroku template</h1>
+    <h1>Django + React + Docker + Heroku</h1>
     <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt=""/>
-    <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Docker-008FCC?style=for-the-badge&logo=docker&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white" alt=""/>
 </div>
@@ -19,7 +18,7 @@ A Profile Website which contains personal information and blogs with CRUD operat
 ### Backend
 
 - `Python 3.8/9`
-- Django + Django Rest Framework `django` `djangorestframework`
+- `django` `djangorestframework` - Django + Django Rest Framework
 - `django-cors-headers` - handling cross origin requests
 - `gunicorn` - production wsgi http server
 - `djangorestframework-simplejwt` - making auth easier
@@ -102,7 +101,8 @@ Rebuilding image is crucial after installing new packages via pip or npm.
 docker-compose up --build
 ```
 
-Application should be up and running: backend 127.0.0.1:8000, frontend 127.0.0.1:3000
+Application should be up and running: backend 127.0.0.1:8000, frontend 127.0.0.1:3000, and
+nginx 127.0.0.1:8080
 If images had been installed and **no changes have been made**, just run to start containers:
 
 ```shell script

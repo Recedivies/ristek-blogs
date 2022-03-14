@@ -93,6 +93,8 @@ venv
 .env
 .env.dev
 .env.prod
+.vscode
 requests
 db.sqlite3
 blogs_users.dot
+staticfiles
