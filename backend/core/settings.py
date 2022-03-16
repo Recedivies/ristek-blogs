@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "django_extensions",
-    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -117,7 +117,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),

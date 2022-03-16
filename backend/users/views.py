@@ -1,6 +1,6 @@
+from rest_framework import status
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
 from rest_framework.response import Response
 
 from session.permissions import IsTokenValid
@@ -34,7 +34,7 @@ class MeView(RetrieveAPIView):
     GET     api/users/me/ - Details of current user
     """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsTokenValid]
     serializer_class = MeSerializer
 
     def get_object(self):
