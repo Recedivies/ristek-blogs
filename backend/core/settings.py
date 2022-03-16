@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -19,7 +20,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://rece-blogs.herokuapp.com",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8080"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -113,3 +116,8 @@ STATIC_URL = "/static-django/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+}

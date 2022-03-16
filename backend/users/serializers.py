@@ -4,28 +4,29 @@ from users.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        try:
-            user = User.objects.create_user(**validated_data)
-        except ValueError as e:
-            print(e)
-        return user
+    password2 = serializers.CharField(
+        label="Confirm Password",
+        write_only=True,
+        style={"input_type": "password"},
+        required=True,
+    )
+
+    def validate(self, attrs):
+        if attrs["password"] != attrs["password2"]:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."}
+            )
+        return attrs
 
     class Meta:
         model = User
-        fields = [
-            "id",
-            "full_name",
-            "username",
-            "password",
-        ]
+        fields = ["id", "full_name", "username", "password", "password2"]
         extra_kwargs = {
-            "password": {"write_only": True},
+            "password2": {"write_only": True},
         }
-        depth = 1
 
 
 class MeSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "full_name", "username")
+        fields = ("id", "full_name", "username", "is_staff")
