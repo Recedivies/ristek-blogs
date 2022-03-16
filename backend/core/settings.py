@@ -19,7 +19,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://rece-blogs.herokuapp.com",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8080"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "django_extensions",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -113,3 +116,9 @@ STATIC_URL = "/static-django/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+}

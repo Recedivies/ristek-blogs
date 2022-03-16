@@ -1,34 +1,33 @@
-import { useState } from "react";
-import axios from "./utils/apiClient";
+import React from "react";
+import Test from "./components/Test";
+import Header from "./components/Header";
+import Profile from "./components/Profile";
+import Signup from "./components/signup/Signup";
+import Login from "./components/login/Login";
+import Blog from "./components/blog/Blog";
+import Footer from "./components/Footer";
+
+import { ToastContainer } from "react-toastify";
+
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [textInput, setTextInput] = useState("");
-  const [output, setOutput] = useState("");
-
-  const handleSubmit = () => {
-    axios
-      .get(`/api/blogs/test?text=${textInput}`)
-      .then((res) => {
-        setOutput(res.data.text);
-      })
-      .catch((err) => console.log(err));
-  };
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-
-      <div>
-        <p>Test connection with API:</p>
-        <label htmlFor="char-input">Make this text uppercase: </label>
-        <input
-          id="char-input"
-          type="text"
-          value={textInput}
-          onChange={(e) => setTextInput(e.target.value)}
-        />
-        <button onClick={handleSubmit}>Submit</button>
-        <h3>{output}</h3>
-      </div>
+    <div>
+      <Header />
+      <ToastContainer
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={3000}
+      />
+      <Routes>
+        <Route path="/" element={<Test />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/blogs" element={<Blog />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Footer />
     </div>
   );
 };

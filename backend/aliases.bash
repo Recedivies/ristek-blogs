@@ -6,6 +6,9 @@ alias pmm="python3 manage.py migrate"
 alias pmmg="python3 manage.py makemigrations"
 alias pmc="python3 manage.py createsuperuser"
 
+# --run-syncdb - Creates tables for apps without migrations
+alias pmmrs="python3 manage.py migrate --run-syncdb" 
+
 alias fresh="rm db.sqlite3 && pmmg && pmm"
 
 alias erd="python manage.py graph_models -a > erd.dot && python manage.py graph_models -a -g -o erd.png"

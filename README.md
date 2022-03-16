@@ -6,7 +6,6 @@
     <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt=""/>
     <img src="https://img.shields.io/badge/Docker-008FCC?style=for-the-badge&logo=docker&logoColor=white" alt=""/>
-    <img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white" alt=""/>
 </div>
 
 ## Description:
@@ -26,7 +25,7 @@ A Profile Website which contains personal information and blogs with CRUD operat
 ### Frontend
 
 - `Node 14`
-- `react` React
+- `react` - React
 - `react-router-dom` - frontend routing
 - `axios` - for making requests
 - `Material-UI` - UI libraries
@@ -98,7 +97,7 @@ This might take up to few minutes.
 Rebuilding image is crucial after installing new packages via pip or npm.
 
 ```shell
-docker-compose up --build
+docker-compose -f docker-compose.dev.yml up --build
 ```
 
 Application should be up and running: backend 127.0.0.1:8000, frontend 127.0.0.1:3000, and
@@ -106,13 +105,13 @@ nginx 127.0.0.1:8080
 If images had been installed and **no changes have been made**, just run to start containers:
 
 ```shell script
-docker-compose up
+docker-compose -f docker-compose.dev.yml up
 ```
 
 Bringing down containers with **optional** -v flag removes **all** attached volumes and invalidates caches.
 
 ```shell script
-docker-compose down
+docker-compose -f docker-compose.dev.yml down
 ```
 
 To run commands in active container:
@@ -125,7 +124,6 @@ e.g
 
 ```shell script
 docker exec -it backend python manage.py createsuperuser
-docker exec -it backend coverage run manage.py test
 docker exec -it frontend /bin/sh
 ```
 
